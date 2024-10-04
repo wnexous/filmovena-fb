@@ -1,9 +1,25 @@
+"use client"
+
 import { Button } from 'primereact/button';
 import PageForm from './page.form';
+
+import { gql, useQuery } from "@apollo/client"
+
+const GET_DATA = gql`
+  query {
+      teste
+  }
+`;
+
+
 export default function Home() {
 
+  const { loading, error, data } = useQuery(GET_DATA);
 
-
+  if(loading) return <div>Loading...</div>
+  console.log('error', error)
+  console.log('loading', loading)
+  console.log('data', data)
 
 
   return (
