@@ -1,0 +1,3 @@
+.wrapper {
+    @apply max-w-[1280px] mx-4
+}
