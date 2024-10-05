@@ -1,5 +1,6 @@
 import AtorModel from "@/models/Ator.model";
 import ElencoModel from "@/models/Elenco.model";
+import EstiloModel from "@/models/Estilo.model";
 import FilmeModel from "@/models/Filme.model";
 import GeneroModel from "@/models/Genero.model";
 import ProdutoraModel from "@/models/Produtora.model";
@@ -18,7 +19,7 @@ const resolvers = {
         Id: (data: FilmeModel) => data.Id,
         Nome: (data: FilmeModel) => data.Nome,
         Dt_Lanc: (data: FilmeModel) => data.Dt_Lanc,
-        IMDB: (data: FilmeModel) => data.IMDB,
+        IMDB: (data: FilmeModel) => Math.round(data.IMDB),
         Tempo_duracao: (data: FilmeModel) => data.Tempo_duracao,
         Faixa_Etaria: (data: FilmeModel) => data.Faixa_Etaria,
         Sinopse: (data: FilmeModel) => data.Sinopse,
@@ -48,6 +49,11 @@ const resolvers = {
         Id: (data: ElencoModel) => data.Id,
         fk_Ator_Id: (data: ElencoModel) => data.fk_Ator_Id,
         fk_Filme_Id: (data: ElencoModel) => data.fk_Filme_Id,
+    },
+    Estilo: {
+        Id: (data: EstiloModel) => data.Id,
+        fk_Filme_Id: (data: EstiloModel) => data.fk_Filme_Id,
+        fk_Genero_Id: (data: EstiloModel) => data.fk_Genero_Id,
     },
 };
 

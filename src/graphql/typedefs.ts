@@ -34,7 +34,7 @@ const typeDefs = /* GraphQL */ `
   }
   type Estilo {
     Id: ID
-    fk_Ator_Id: Int
+    fk_Filme_Id: Int
     fk_Genero_Id: Int
   }
   type Genero {
