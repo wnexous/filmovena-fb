@@ -1,9 +1,9 @@
 
 import envs from "@/config/envs";
-import mysql from "mysql"
+import mysql from "mysql2"
 
 const mysqlClientSingleton = () => {
-    return mysql.createConnection(envs.sql);
+    return mysql.createConnection({...envs.sql});
 };
 
 declare const globalThis: {

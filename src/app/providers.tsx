@@ -10,7 +10,7 @@ import client from "@/libs/api";
 export default function Providers({ children }: PropsWithChildren) {
     return <>
         <ApolloProvider client={client}>
-            <PrimeReactProvider >
+            <PrimeReactProvider>
                 {children}
             </PrimeReactProvider>
         </ApolloProvider>

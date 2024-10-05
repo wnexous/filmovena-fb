@@ -1,34 +1,46 @@
 "use client"
 
+import AtorForm from "@/components/templates/AtorForm";
+import ElencoForm from "@/components/templates/ElencoForm";
+import EstiloForm from "@/components/templates/EstiloForm";
+import GeneroForm from "@/components/templates/GeneroForm";
+import ProdutoraForm from "@/components/templates/ProdutoraForm";
 import { Button } from 'primereact/button';
-import PageForm from './page.form';
+import { Card } from 'primereact/card';
+import { TabPanel, TabView } from 'primereact/tabview';
+import FilmeForm from '../../components/templates/FilmeForm';
 
-import { gql, useQuery } from "@apollo/client"
 
-const GET_DATA = gql`
-  query {
-      teste
-  }
-`;
 
 
 export default function Home() {
 
-  const { loading, error, data } = useQuery(GET_DATA);
-
-  if(loading) return <div>Loading...</div>
-  console.log('error', error)
-  console.log('loading', loading)
-  console.log('data', data)
 
 
   return (
     <main className="wrapper self-center min-h-[100vh] flex justify-center items-center my-aut mx-auto">
-      <div className='bg-neutral-800 p-4 rounded-md max-w-96 flex flex-col gap-4'>
-        <h1 className='font-sans'>Filmovena</h1>
+      <Card className='flex flex-col gap-4 max-w-full' title="Filmovena" subTitle="Assista filmes gratuitamente">
 
-
-        <PageForm />
+        <TabView className='bg-transparent'>
+          <TabPanel header="Filmes" className='bg-transparent'>
+            <FilmeForm />
+          </TabPanel>
+          <TabPanel header="Atores">
+            <AtorForm />
+          </TabPanel>
+          <TabPanel header="Genero">
+            <GeneroForm />
+          </TabPanel>
+          <TabPanel header="Produtora">
+            <ProdutoraForm />
+          </TabPanel>
+          <TabPanel header="Elenco">
+            <ElencoForm />
+          </TabPanel>
+          <TabPanel header="Estilo">
+            <EstiloForm />
+          </TabPanel>
+        </TabView>
 
 
         <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>
@@ -39,7 +51,7 @@ export default function Home() {
           <Button className="basis-[80px] flex-grow justify-center bg-blue-600 border-blue-600 text-white">Update</Button>
         </div>
 
-      </div>
+      </Card>
     </main>
   );
 }

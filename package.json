@@ -17,6 +17,7 @@
     "graphql-tools": "^9.0.1",
     "graphql-yoga": "^5.7.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.11.3",
     "next": "14.2.14",
     "primereact": "^10.8.3",
     "react": "^18",

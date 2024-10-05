@@ -1,16 +1,51 @@
 const typeDefs = /* GraphQL */ `
   type Query {
-    teste: String
+    filmes: [Filme]
+    atores: [Ator]
+    elencos: [Elenco]
+    estilos: [Estilo]
+    generos: [Genero]
+    produtoras: [Produtora]
   }
   type Filme {
     Id: ID
     Nome: String
-    Dt_Nasc:String
+    Dt_Lanc:String
+    IMDB: Float
+    Tempo_duracao: String
+    Faixa_Etaria: Int
+    Sinopse: String
+    fk_Produtora_Id: Int 
+  }
+  type Ator {
+    Id: ID
+    Nome: String
+    Dt_Nasc: String
     Sexo: String
     Nacionalidade: String
     Raca: String
     Qntd_Oscar: Int
-    Dt_Morte: String 
+    Dt_Morte: String
+  }
+  type Elenco {
+    Id: ID
+    fk_Ator_Id: Int
+    fk_Filme_Id: Int
+  }
+  type Estilo {
+    Id: ID
+    fk_Ator_Id: Int
+    fk_Genero_Id: Int
+  }
+  type Genero {
+    Id: ID
+    Nome: String
+    Descricao: String
+  }
+  type Produtora {
+    Id: ID
+    Nome: String
+    Ano_Fund: Int
   }
 `;
 

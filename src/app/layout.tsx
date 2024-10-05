@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import "@/styles/index.css";
 import Providers from "./providers";
-import "primereact/resources/themes/saga-orange/theme.css";
+// import "primereact/resources/themes/saga-orange/theme.css";
+// import "primereact/resources/themes/viva-dark/theme.css";
+// import "primereact/resources/themes/mdc-dark-deeppurple/theme.css";
+// import "primereact/resources/themes/arya-orange/theme.css";
+import "primereact/resources/themes/arya-orange/theme.css";
 
 export const metadata: Metadata = {
   title: "Filmovena",
@@ -15,11 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt_br">
-      <Providers>
-        <body className={`antialiased min-h-[100dvh]`}>
+      <body className={`antialiased min-h-[100dvh]`}>
+        <Providers>
           {children}
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   );
 }
