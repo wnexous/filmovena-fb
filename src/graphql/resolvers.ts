@@ -6,7 +6,9 @@ import GeneroModel from "@/models/Genero.model";
 import ProdutoraModel from "@/models/Produtora.model";
 import query from "@/vendors/query";
 
-const resolvers = {
+import { IResolvers, } from '@graphql-tools/utils';
+
+const resolvers: IResolvers<unknown, unknown> = {
     Query: {
         filmes: async () => await query("select * from Filme"),
         atores: async () => await query("select * from Ator"),
