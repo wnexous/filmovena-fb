@@ -35,20 +35,19 @@ export default function EstiloDialog({ data: initialData, onClose }: DialogI) {
             <label id={key} className="text-neutral-400">{label}</label>
         </FloatLabel>
     }
+    const footer = <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>
+        <Button className="basis-[80px] flex-grow justify-center bg-red-600 border-red-600 text-white" >Delete</Button>
+        <Button className="basis-[80px] flex-grow justify-center bg-blue-600 border-blue-600 text-white">Update</Button>
+    </div>
 
-    return <Dialog onHide={onClose} visible={state} >
-        <div className="flex flex-col gap-7 w-full my-4">
+    const header = "Editar estilo"
+
+    return <Dialog onHide={onClose} visible={state} header={header} footer={footer} className="w-full max-w-96">
+        <div className="flex flex-col gap-7 w-full my-6">
             {InputBox({ key: "Id", label: "Insira o ID" })}
             {InputBox({ key: "fk_Filme_Id", label: "Insira o id do ator" })}
             {InputBox({ key: "fk_Genero_Id", label: "Insira id do gênero" })}
         </div>
 
-        <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>
-            <Button className="basis-[80px] flex-grow justify-center bg-green-600 border-green-600 text-white" >Insert</Button>
-            <Button className="basis-[80px] flex-grow justify-center">Select *</Button>
-            <Button className="basis-[160px] flex-grow justify-center">Select one record</Button>
-            <Button className="basis-[80px] flex-grow justify-center bg-red-600 border-red-600 text-white" >Delete</Button>
-            <Button className="basis-[80px] flex-grow justify-center bg-blue-600 border-blue-600 text-white">Update</Button>
-        </div>
     </Dialog>
 }

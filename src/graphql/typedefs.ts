@@ -7,15 +7,28 @@ const typeDefs = /* GraphQL */ `
     generos: [Genero]
     produtoras: [Produtora]
   }
+  type Mutation {
+    editarFilme(filme: FilmeInput, whereId: Int): Filme
+  }
   type Filme {
     Id: ID
     Nome: String
-    Dt_Lanc:String
+    Dt_Lanc: String
     IMDB: Float
     Tempo_duracao: String
     Faixa_Etaria: Int
     Sinopse: String
-    fk_Produtora_Id: Int 
+    fk_Produtora_Id: Int
+  }
+  input FilmeInput {
+    Id: String
+    Nome: String
+    Dt_Lanc: String
+    IMDB: String
+    Tempo_duracao: String
+    Faixa_Etaria: String
+    Sinopse: String
+    fk_Produtora_Id: String
   }
   type Ator {
     Id: ID

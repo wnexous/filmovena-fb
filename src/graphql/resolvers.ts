@@ -10,12 +10,23 @@ import { IResolvers, } from '@graphql-tools/utils';
 
 const resolvers: IResolvers<unknown, unknown> = {
     Query: {
-        filmes: async () => await query("select * from Filme"),
-        atores: async () => await query("select * from Ator"),
-        elencos: async () => await query("select * from Elenco"),
-        estilos: async () => await query("select * from Estilo"),
-        generos: async () => await query("select * from Genero"),
-        produtoras: async () => await query("select * from Produtora"),
+        filmes: async () => await query.query("select * from Filme"),
+        atores: async () => await query.query("select * from Ator"),
+        elencos: async () => await query.query("select * from Elenco"),
+        estilos: async () => await query.query("select * from Estilo"),
+        generos: async () => await query.query("select * from Genero"),
+        produtoras: async () => await query.query("select * from Produtora"),
+    },
+    Mutation: {
+        async editarFilme(_, { filme, whereId }: { filme: FilmeModel, whereId: number }) {
+            try {
+                await query.update<FilmeModel>("Filme", filme, { Id: whereId })
+            } catch (error) {
+                throw error
+
+            }
+            return filme
+        }
     },
     Filme: {
         Id: (data: FilmeModel) => data.Id,

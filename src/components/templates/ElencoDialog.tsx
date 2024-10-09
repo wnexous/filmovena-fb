@@ -36,19 +36,19 @@ export default function ElencoDialog({ data: initialData, onClose }: DialogI) {
         </FloatLabel>
     }
 
-    return <Dialog onHide={onClose} visible={state} >
-        <div className="flex flex-col gap-7 w-full my-4">
+    const footer = <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>
+        <Button className="basis-[80px] flex-grow justify-center bg-red-600 border-red-600 text-white" >Delete</Button>
+        <Button className="basis-[80px] flex-grow justify-center bg-blue-600 border-blue-600 text-white">Update</Button>
+    </div>
+
+    const header = "Editar elenco"
+
+    return <Dialog onHide={onClose} visible={state} header={header} footer={footer} className="w-full max-w-96">
+        <div className="flex flex-col gap-7 w-full my-6">
             {InputBox({ key: "Id", label: "Insira o ID" })}
             {InputBox({ key: "fk_Ator_Id", label: "Id do ator" })}
             {InputBox({ key: "fk_Filme_Id", label: "Id do filme" })}
         </div>
 
-        <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>
-            <Button className="basis-[80px] flex-grow justify-center bg-green-600 border-green-600 text-white" >Insert</Button>
-            <Button className="basis-[80px] flex-grow justify-center">Select *</Button>
-            <Button className="basis-[160px] flex-grow justify-center">Select one record</Button>
-            <Button className="basis-[80px] flex-grow justify-center bg-red-600 border-red-600 text-white" >Delete</Button>
-            <Button className="basis-[80px] flex-grow justify-center bg-blue-600 border-blue-600 text-white">Update</Button>
-        </div>
     </Dialog>
 }
