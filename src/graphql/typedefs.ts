@@ -1,4 +1,7 @@
 const typeDefs = /* GraphQL */ `
+
+  scalar Date
+
   type Query {
     filmes: [Filme]
     atores: [Ator]
@@ -13,7 +16,7 @@ const typeDefs = /* GraphQL */ `
   type Filme {
     Id: ID
     Nome: String
-    Dt_Lanc: String
+    Dt_Lanc: Date
     IMDB: Float
     Tempo_duracao: String
     Faixa_Etaria: Int
@@ -24,7 +27,7 @@ const typeDefs = /* GraphQL */ `
     Id: String
     Nome: String
     Dt_Lanc: String
-    IMDB: String
+    IMDB: Float
     Tempo_duracao: String
     Faixa_Etaria: String
     Sinopse: String

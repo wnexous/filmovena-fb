@@ -1,13 +1,12 @@
 import FilmeModel from "@/models/Filme.model";
+import getMessageFromError from "@/vendors/getMessageFromError";
+import objDiferentiator from "@/vendors/objDiferentiator";
 import { gql, useMutation } from "@apollo/client";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { FloatLabel } from "primereact/floatlabel";
-import { InputText } from "primereact/inputtext";
 import { useEffect, useState } from "react";
 import IF from "../atoms/IF";
-import getMessageFromError from "@/vendors/getMessageFromError";
-import objDiferentiator from "@/vendors/objDiferentiator";
+import InputBox from "../organisms/InputBox";
 
 type Model = FilmeModel
 const Model = FilmeModel
@@ -29,6 +28,7 @@ const UPDATE = gql`
 export default function FilmeDialog({ data: initialData, onClose }: DialogI) {
 
     const [form, setForm] = useState<Model>(new Model())
+    console.log('form', form)
     const [state, setState] = useState(false)
     const [updateFilme, { loading, error }] = useMutation<FilmeModel>(UPDATE)
 
@@ -49,14 +49,8 @@ export default function FilmeDialog({ data: initialData, onClose }: DialogI) {
         setState(!!initialData)
     }, [initialData])
 
-    const onInputData = (key: keyof typeof form, data: unknown) => setForm(d => ({ ...d, [key]: data }))
+    const onInputData = (key: string, data: unknown) => setForm(d => ({ ...d, [key]: data }))
 
-    const InputBox = ({ key, label }: { key: keyof typeof form, label: string }) => {
-        return <FloatLabel key={key} className="w-full">
-            <InputText className="w-full bg-transparent text-white" id={key} value={`${form[key] || ""}`} onChange={(e) => onInputData(key, e.target.value)} />
-            <label id={key} className="text-neutral-400">{label}</label>
-        </FloatLabel>
-    }
 
     const footer = <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>
         <Button className="basis-[80px] flex-grow justify-center bg-red-600 border-red-600 text-white" >Delete</Button>
@@ -67,14 +61,14 @@ export default function FilmeDialog({ data: initialData, onClose }: DialogI) {
 
     return <Dialog onHide={onClose} visible={state} header={header} footer={footer} className="w-full max-w-96">
         <div className="flex flex-col gap-7 w-full my-6">
-            {InputBox({ key: "Id", label: "Insira o ID" })}
-            {InputBox({ key: "Nome", label: "Insira o nome" })}
-            {InputBox({ key: "Dt_Lanc", label: "Data de lançamento" })}
-            {InputBox({ key: "IMDB", label: "Insira a nota do IMDB" })}
-            {InputBox({ key: "Tempo_duracao", label: "Insira o tempo de duração" })}
-            {InputBox({ key: "Faixa_Etaria", label: "Insira a faixa etária" })}
-            {InputBox({ key: "Sinopse", label: "Insira a sinópse" })}
-            {InputBox({ key: "fk_Produtora_Id", label: "Insira o id da produtora" })}
+            <InputBox value={form["Id"]} inputKey="Id" label="Insira o ID" onInput={onInputData} inputType="text" outputType="int" />
+            <InputBox value={form["Nome"]} inputKey="Nome" label="Insira o nome" onInput={onInputData} inputType="text" outputType="string" />
+            <InputBox value={form["Dt_Lanc"]} inputKey="Dt_Lanc" label="Data de lançamento" onInput={onInputData} inputType="date" outputType="date" />
+            <InputBox value={form["IMDB"]} inputKey="IMDB" label="Insira a nota do IMDB" onInput={onInputData} inputType="text" outputType="float" />
+            <InputBox value={form["Tempo_duracao"]} inputKey="Tempo_duracao" label="Insira o tempo de duração" onInput={onInputData} inputType="time" outputType="int" />
+            <InputBox value={form["Faixa_Etaria"]} inputKey="Faixa_Etaria" label="Insira a faixa etária" onInput={onInputData} inputType="text" outputType="string" />
+            <InputBox value={form["Sinopse"]} inputKey="Sinopse" label="Insira a sinópse" onInput={onInputData} inputType="text" outputType="string" />
+            <InputBox value={form["fk_Produtora_Id"]} inputKey="fk_Produtora_Id" label="Insira o id da produtora" onInput={onInputData} inputType="text" outputType="int" />
         </div>
         <IF conditional={!!error}>
             Deu pau:

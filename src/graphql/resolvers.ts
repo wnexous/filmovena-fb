@@ -10,7 +10,11 @@ import { IResolvers, } from '@graphql-tools/utils';
 
 const resolvers: IResolvers<unknown, unknown> = {
     Query: {
-        filmes: async () => await query.query("select * from Filme"),
+        filmes: async () => {
+            const r = await query.query("select * from Filme")
+            console.log('r', r)
+            return r
+        },
         atores: async () => await query.query("select * from Ator"),
         elencos: async () => await query.query("select * from Elenco"),
         estilos: async () => await query.query("select * from Estilo"),
