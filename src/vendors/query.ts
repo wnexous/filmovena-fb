@@ -5,7 +5,7 @@ import buildFieldsQueryByObj from "./buildFieldsQueryByObj"
 import { XOR } from "@/interfaces/Xor"
 const query = {
     query(query: string, params: string[] = []): Promise<QueryResult> {
-        console.log('query', query)
+        console.log('query', query, params)
         return new Promise((res, rej) => database.execute(query, params, (err, data) => {
             if (err) { rej(err) }
             else { res(data) }
@@ -17,11 +17,15 @@ const query = {
 
         return this.query(`UPDATE ${table} SET ${sets} WHERE ${setsWhere};`, [...setsParams, ...setsWhereParams])
     },
+    delete<T = object>(table: string, where: XOR<T>) {
+        const [setsWhere, setsWhereParams] = buildSetQueryByObj(where as object)
+        return this.query(`DELETE FROM ${table} WHERE ${setsWhere};`, setsWhereParams)
+    },
     select<T = object>(table: string, data: Partial<Record<keyof T, boolean>>, where: XOR<T>) {
         const fields = buildFieldsQueryByObj(data)
         const [setsWhere, setsWhereParams] = buildSetQueryByObj(where as object)
 
-        return this.query(`Select ${fields} WHERE ${setsWhere};`, [...setsWhereParams])
+        return this.query(`SELECT ${fields} WHERE ${setsWhere};`, [...setsWhereParams])
     }
 }
 export default query

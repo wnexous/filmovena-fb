@@ -10,11 +10,7 @@ import { IResolvers, } from '@graphql-tools/utils';
 
 const resolvers: IResolvers<unknown, unknown> = {
     Query: {
-        filmes: async () => {
-            const r = await query.query("select * from Filme")
-            console.log('r', r)
-            return r
-        },
+        filmes: async () => await query.query("select * from Filme"),
         atores: async () => await query.query("select * from Ator"),
         elencos: async () => await query.query("select * from Elenco"),
         estilos: async () => await query.query("select * from Estilo"),
@@ -22,15 +18,47 @@ const resolvers: IResolvers<unknown, unknown> = {
         produtoras: async () => await query.query("select * from Produtora"),
     },
     Mutation: {
-        async editarFilme(_, { filme, whereId }: { filme: FilmeModel, whereId: number }) {
-            try {
-                await query.update<FilmeModel>("Filme", filme, { Id: whereId })
-            } catch (error) {
-                throw error
-
-            }
-            return filme
+        async editarAtor(_, { model, whereId }: { model: FilmeModel, whereId: number }) {
+            await query.update<FilmeModel>("Ator", model, { Id: whereId })
+            return true
+        },
+        async deletarAtor(_, { modelId }: { modelId: number }) {
+            await query.delete<FilmeModel>("Ator", { Id: modelId })
+            return true
+        },
+        async editarElenco(_, { model, whereId }: { model: FilmeModel, whereId: number }) {
+            await query.update<FilmeModel>("ELenco", model, { Id: whereId })
+            return true
+        },
+        async deletarElenco(_, { modelId }: { modelId: number }) {
+            await query.delete<FilmeModel>("Elenco", { Id: modelId })
+            return true
+        },
+        async editarFilme(_, { model, whereId }: { model: FilmeModel, whereId: number }) {
+            await query.update<FilmeModel>("Filme", model, { Id: whereId })
+            return true
+        },
+        async deletarFilme(_, { modelId }: { modelId: number }) {
+            await query.delete<FilmeModel>("Filme", { Id: modelId })
+            return true
+        },
+        async editarGenero(_, { model, whereId }: { model: FilmeModel, whereId: number }) {
+            await query.update<FilmeModel>("Genero", model, { Id: whereId })
+            return true
+        },
+        async deletarGenero(_, { modelId }: { modelId: number }) {
+            await query.delete<FilmeModel>("Genero", { Id: modelId })
+            return true
+        },
+        async editarProdutora(_, { model, whereId }: { model: FilmeModel, whereId: number }) {
+            await query.update<FilmeModel>("Produtora", model, { Id: whereId })
+            return true
+        },
+        async deletarProdutora(_, { modelId }: { modelId: number }) {
+            await query.delete<FilmeModel>("Produtora", { Id: modelId })
+            return true
         }
+        
     },
     Filme: {
         Id: (data: FilmeModel) => data.Id,
