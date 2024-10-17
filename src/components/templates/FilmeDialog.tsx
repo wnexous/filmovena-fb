@@ -6,6 +6,7 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useEffect, useState } from "react";
 import IF from "../atoms/IF";
+import DropdownTableOptions from "../molecules/DropdownTableOptions";
 import InputBox from "../organisms/InputBox";
 
 type Model = FilmeModel
@@ -69,6 +70,7 @@ export default function FilmeDialog({ data: initialData, onClose, onChange }: Di
             <InputBox value={form["Faixa_Etaria"]} inputKey="Faixa_Etaria" label="Insira a faixa etária" onInput={onInputData} inputType="number" outputType="string" />
             <InputBox value={form["Sinopse"]} inputKey="Sinopse" label="Insira a sinópse" onInput={onInputData} inputType="text" outputType="string" fieldType="text-area" />
             <InputBox value={form["fk_Produtora_Id"]} inputKey="fk_Produtora_Id" label="Insira o id da produtora" onInput={onInputData} inputType="text" outputType="int" />
+            <DropdownTableOptions table="produtoras" inputKey="fk_Produtora_Id" column="Nome" defaultId={form["fk_Produtora_Id"]} onInput={onInputData} placeholder="Produtoras" />
         </div>
         <IF conditional={!!error}>
             Deu pau:

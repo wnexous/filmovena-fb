@@ -16,7 +16,7 @@ const GET_DATA = gql`
         Nacionalidade,
         Raca,
         Qntd_Oscar,
-        Dt_Morte
+        Dt_Morte,
       }
   }
 `;
@@ -31,14 +31,14 @@ export default function AtorForm() {
 
   return <div>
     <DataTable selectionMode={"single"} selection={selected} dataKey={"Id"} onRowUnselect={() => setSelected(null)} onSelectionChange={e => setSelected(e.value as AtorModel)} value={data?.atores} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
-      <Column field="Id" header="Id" ></Column>
-      <Column field="Nome" header="Nome" style={{ width: '14%' }}></Column>
-      <Column field="Dt_Nasc" header="Data de nascimento" style={{ width: '16%' }} className="whitespace-nowrap"></Column>
-      <Column field="Sexo" header="Sexo" ></Column>
-      <Column field="Nacionalidade" header="Nacionalidade" style={{ width: '16%' }} ></Column>
-      <Column field="Raca" header="Raça" style={{ width: '12%' }}></Column>
-      <Column field="Qntd_Oscar" header="Qntd Oscar" style={{ width: '25%' }}></Column>
-      <Column field="Dt_Morte" header="Falecimento" className="whitespace-nowrap"></Column>
+      <Column field="Id" header="Id" />
+      <Column field="Nome" header="Nome" style={{ width: '14%' }} />
+      <Column field="Dt_Nasc" header="Data de nascimento" style={{ width: '16%' }} className="whitespace-nowrap" />
+      <Column field="Sexo" header="Sexo" />
+      <Column field="Nacionalidade" header="Nacionalidade" style={{ width: '16%' }} />
+      <Column field="Raca" header="Raça" style={{ width: '12%' }} />
+      <Column field="Qntd_Oscar" header="Qntd Oscar" style={{ width: '25%' }} />
+      <Column field="Dt_Morte" header="Falecimento" className="whitespace-nowrap" />
     </DataTable>
 
     <AtorDialog data={selected} onClose={() => setSelected(null)} onChange={refetch} />

@@ -52,12 +52,12 @@ const typeDefs = /* GraphQL */ `
   type Ator {
     Id: ID
     Nome: String
-    Dt_Nasc: String
+    Dt_Nasc: Date
     Sexo: String
     Nacionalidade: String
     Raca: String
     Qntd_Oscar: Int
-    Dt_Morte: String
+    Dt_Morte: Date
   }
   input AtorInput {
     Id: String

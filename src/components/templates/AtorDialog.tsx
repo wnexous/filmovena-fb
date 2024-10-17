@@ -64,7 +64,7 @@ export default function AtorDialog({ data: initialData, onClose, onChange }: Dia
         <div className="flex flex-col gap-7 w-full my-6">
             <InputBox value={form["Id"]} inputKey="Id" label="Insira o ID" onInput={onInputData} inputType="text" outputType="int" />
             <InputBox value={form["Nome"]} inputKey="Nome" label="Insira o nome" onInput={onInputData} inputType="text" outputType="string" />
-            <InputBox value={form["Dt_Nasc"]} inputKey="Dt_Nasc" label="Insira a data de nascimento" onInput={onInputData} inputType="" outputType="date" />
+            <InputBox value={form["Dt_Nasc"]} inputKey="Dt_Nasc" label="Insira a data de nascimento" onInput={onInputData} inputType="date" outputType="date"  />
             <InputBox value={form["Sexo"]} inputKey="Sexo" label="Insira o sexo" onInput={onInputData} inputType="text" outputType="string" />
             <InputBox value={form["Nacionalidade"]} inputKey="Nacionalidade" label="Insira a nacionalidade" onInput={onInputData} inputType="text" outputType="string" />
             <InputBox value={form["Raca"]} inputKey="Raca" label="Insira a raça" onInput={onInputData} inputType="text" outputType="string" />
