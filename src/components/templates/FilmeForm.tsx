@@ -22,7 +22,6 @@ const GET_DATA = gql`
 `;
 
 export default function FilmeForm() {
-
   const { loading, data, error, refetch } = useQuery<{ filmes: FilmeModel[] }>(GET_DATA);
   const [selected, setSelected] = useState<FilmeModel | null>(null)
 

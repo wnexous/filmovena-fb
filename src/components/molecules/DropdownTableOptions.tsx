@@ -4,11 +4,12 @@ import { gql, useQuery } from "@apollo/client";
 import { nanoid } from "nanoid";
 import { FloatLabel } from "primereact/floatlabel";
 import { useEffect, useState } from "react";
+import Queries from "@/interfaces/Queries";
 
 interface DropdownTableOptionsI {
     defaultId: string | number
     onInput: (key: string, data: unknown) => void
-    table: string
+    table: Queries
     column: string
     idColumnName?: string
     placeholder: string
