@@ -3,51 +3,52 @@ const typeDefs = /* GraphQL */ `
   scalar Date
 
   type Query {
-    filmes: [Filme]
     atores: [Ator]
+    categoriasOscar: [CategoriaOscar]
     elencos: [Elenco]
     estilos: [Estilo]
+    faixaEtarias: [FaixaEtaria]
+    filmes: [Filme]
     generos: [Genero]
+    oscars: [Oscar]
     produtoras: [Produtora]
   }
   type Mutation {
+    criarAtor(model: AtorInput): Boolean
     editarAtor(model: AtorInput, whereId: Int): Boolean
-    deletarAtor(modelId: Int): Boolean
+    excluirAtor(whereId: Int): Boolean
 
+    criarCategoriaOscar(model: CategoriaOscarInput): Boolean
+    editarCategoriaOscar(model: CategoriaOscarInput, whereId: Int): Boolean
+    excluirCategoriaOscar(whereId: Int): Boolean
+
+    criarElenco(model: ElencoInput): Boolean
     editarElenco(model: ElencoInput, whereId: Int): Boolean
-    deletarElenco(modelId: Int): Boolean
+    excluirElenco(whereId: Int): Boolean
 
+    criarEstilo(model: EstiloInput): Boolean
     editarEstilo(model: EstiloInput, whereId: Int): Boolean
-    deletarEstilo(modelId: Int): Boolean
+    excluirEstilo(whereId: Int): Boolean
 
+    criarFaixaEtaria(model: FaixaEtariaInput): Boolean
+    editarFaixaEtaria(model: FaixaEtariaInput, whereId: Int): Boolean
+    excluirFaixaEtaria(whereId: Int): Boolean
+
+    criarFilme(model: FilmeInput): Boolean
     editarFilme(model: FilmeInput, whereId: Int): Boolean
-    deletarFilme(modelId: Int): Boolean
+    excluirFilme(whereId: Int): Boolean
 
+    criarGenero(model: GeneroInput): Boolean
     editarGenero(model: GeneroInput, whereId: Int): Boolean
-    deletarGenero(modelId: Int): Boolean
+    excluirGenero(whereId: Int): Boolean
 
+    criarOscar(model: OscarInput): Boolean
+    editarOscar(model: OscarInput, whereId: Int): Boolean
+    excluirOscar(whereId: Int): Boolean
+
+    criarProdutora(model: ProdutoraInput): Boolean
     editarProdutora(model: ProdutoraInput, whereId: Int): Boolean
-    deletarProdutora(modelId: Int): Boolean
-  }
-  type Filme {
-    Id: ID
-    Nome: String
-    Dt_Lanc: Date
-    IMDB: Float
-    Tempo_duracao: String
-    Faixa_Etaria: Int
-    Sinopse: String
-    fk_Produtora_Id: Int
-  }
-  input FilmeInput {
-    Id: String
-    Nome: String
-    Dt_Lanc: String
-    IMDB: Float
-    Tempo_duracao: String
-    Faixa_Etaria: String
-    Sinopse: String
-    fk_Produtora_Id: String
+    excluirProdutora(whereId: Int): Boolean
   }
   type Ator {
     Id: ID
@@ -56,18 +57,26 @@ const typeDefs = /* GraphQL */ `
     Sexo: String
     Nacionalidade: String
     Raca: String
-    Qntd_Oscar: Int
     Dt_Morte: Date
   }
   input AtorInput {
-    Id: String
+    Id: ID
     Nome: String
     Dt_Nasc: String
     Sexo: String
     Nacionalidade: String
     Raca: String
-    Qntd_Oscar: String
     Dt_Morte: String
+  }
+  type CategoriaOscar {
+    Id: ID
+    Descricao: String
+    Tipo: String
+  }
+  input CategoriaOscarInput {
+    Id: ID
+    Descricao: String
+    Tipo: String
   }
   type Elenco {
     Id: ID
@@ -75,7 +84,7 @@ const typeDefs = /* GraphQL */ `
     fk_Filme_Id: Int
   }
   input ElencoInput {
-    Id: String
+    Id: ID
     fk_Ator_Id: String
     fk_Filme_Id: String
   }
@@ -85,9 +94,39 @@ const typeDefs = /* GraphQL */ `
     fk_Genero_Id: Int
   }
   input EstiloInput {
-    Id: String
+    Id: ID
     fk_Filme_Id: String
     fk_Genero_Id: String
+  }
+  type FaixaEtaria {
+    Id: ID
+    Idade: Int
+    Descricao: String
+  }
+  input FaixaEtariaInput {
+    Id: ID
+    Idade: String
+    Descricao: String
+  }
+  type Filme {
+    Id: ID
+    Nome: String
+    Dt_Lanc: Date
+    IMDB: Float
+    Tempo_duracao: String
+    Sinopse: String
+    fk_Produtora_Id: Int
+    fk_FaixaEtaria_Id: Int
+  }
+  input FilmeInput {
+    Id: ID
+    Nome: String
+    Dt_Lanc: Date
+    IMDB: Float
+    Tempo_duracao: String
+    Sinopse: String
+    fk_Produtora_Id: String
+    fk_FaixaEtaria_Id: String
   }
   type Genero {
     Id: ID
@@ -95,9 +134,21 @@ const typeDefs = /* GraphQL */ `
     Descricao: String
   }
   input GeneroInput {
-    Id: String
+    Id: ID
     Nome: String
     Descricao: String
+  }
+  type Oscar {
+    Id: ID
+    fk_CategoriaOscar_Id: Int
+    fk_Ator_Id: Int
+    DataPremiacao: Date
+  }
+  input OscarInput {
+    Id: ID
+    fk_CategoriaOscar_Id: String
+    fk_Ator_Id: String
+    DataPremiacao: Date
   }
   type Produtora {
     Id: ID
@@ -105,7 +156,7 @@ const typeDefs = /* GraphQL */ `
     Ano_Fund: Int
   }
   input ProdutoraInput {
-    Id: String
+    Id: ID
     Nome: String
     Ano_Fund: String
   }

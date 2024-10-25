@@ -1,10 +1,10 @@
 export default class FilmeModel {
-    public Id!: number
-    public Nome!: string
-    public Dt_Lanc!: string
-    public IMDB!: number
-    public Tempo_duracao!: number
-    public Faixa_Etaria!: number
-    public Sinopse!: string
-    public fk_Produtora_Id!: number
+    public Id = Number()
+    public Nome = String()
+    public Dt_Lanc = Date()
+    public IMDB = Number()
+    public Tempo_duracao = Number()
+    public Sinopse = String()
+    public fk_Produtora_Id = Number()
+    public fk_FaixaEtaria_Id = Number()
 };

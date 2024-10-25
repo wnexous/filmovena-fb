@@ -1,9 +1,11 @@
 "use client"
+import { DialogHandlerT } from "@/interfaces/DialogI";
 import FilmeModel from "@/models/Filme.model";
 import { gql, useQuery } from "@apollo/client";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import TableButton from "../molecules/TableButton";
 import FilmeDialog from "./FilmeDialog";
 
 const GET_DATA = gql`
@@ -14,22 +16,41 @@ const GET_DATA = gql`
         Dt_Lanc,
         IMDB,
         Tempo_duracao,
-        Faixa_Etaria,
         Sinopse,
-        fk_Produtora_Id
+        fk_Produtora_Id,
+        fk_FaixaEtaria_Id
       }
   }
 `;
 
+const Model = FilmeModel
+type Model = FilmeModel
+const queryName = "filmes"
+
 export default function FilmeForm() {
-  const { loading, data, error, refetch } = useQuery<{ filmes: FilmeModel[] }>(GET_DATA);
-  const [selected, setSelected] = useState<FilmeModel | null>(null)
+  const { loading, data, error, refetch } = useQuery<{ filmes: Model[] }>(GET_DATA);
+  const [selected, setSelected] = useState<Model | null>(null)
+  const [modalType, setModalType] = useState<DialogHandlerT>()
+
+  const openModal = (type: DialogHandlerT, value: Model) => {
+    setModalType(type)
+    setSelected(value)
+  }
+  const closeModal = () => setSelected(null)
+  const reloadData = () => refetch().finally(() => setModalType("edit"))
+
+  useEffect(() => {
+    const haveItemOnList = data?.[queryName].some(i => i.Id == selected?.Id)
+    console.log('data?.[queryName].', data?.[queryName])
+    console.log('haveItemOnList', haveItemOnList)
+    setModalType(haveItemOnList ? "edit" : "create")
+  }, [data, selected])
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Erro: {error.message}</div>
 
   return <div>
-    <DataTable selectionMode={"single"} selection={selected} dataKey={"Id"} onRowUnselect={() => setSelected(null)} onSelectionChange={e => setSelected(e.value as FilmeModel)} value={data?.filmes} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
+    <DataTable footer={<TableButton onClick={() => openModal("create", new Model)}>Criar Novo</TableButton>} selectionMode={"single"} selection={selected} dataKey={"Id"} onRowUnselect={closeModal} onSelectionChange={e => openModal("edit", e.value as FilmeModel)} value={data?.filmes} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
       <Column field="Id" header="Id" ></Column>
       <Column field="Nome" header="Nome" style={{ width: '14%' }}></Column>
       <Column field="Dt_Lanc" header="Data de lançamento" style={{ width: '16%' }} className="whitespace-nowrap"></Column>
@@ -40,10 +61,7 @@ export default function FilmeForm() {
       <Column field="fk_Produtora_Id" header="Id produtora" className="whitespace-nowrap"></Column>
     </DataTable>
 
-    <FilmeDialog data={selected} onClose={() => setSelected(null)} onChange={data => {
-      setSelected(data)
-      refetch()
-    }} />
+    <FilmeDialog type={modalType} data={selected} onClose={() => setSelected(null)} onChange={reloadData} />
 
   </div>
 }

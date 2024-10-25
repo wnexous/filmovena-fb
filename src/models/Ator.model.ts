@@ -1,10 +1,9 @@
 export default class AtorModel {
-    public Id!: number
-    public Nome!: string
-    public Dt_Nasc!: string
-    public Sexo!: string
-    public Nacionalidade!: string
-    public Raca!: string
-    public Qntd_Oscar!: number
-    public Dt_Morte!: string
+    public Id = Number()
+    public Nome = String()
+    public Dt_Nasc = Date()
+    public Sexo = String()
+    public Nacionalidade = String()
+    public Raca = String()
+    public Dt_Morte = Date()
 };

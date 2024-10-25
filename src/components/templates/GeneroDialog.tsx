@@ -1,66 +1,32 @@
+import { DialogI } from "@/interfaces/DialogI";
 import GeneroModel from "@/models/Genero.model";
-import getMessageFromError from "@/vendors/getMessageFromError";
-import objDiferentiator from "@/vendors/objDiferentiator";
-import { gql, useMutation } from "@apollo/client";
-import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useEffect, useState } from "react";
-import IF from "../atoms/IF";
+import DialogFooter from "../organisms/DialogFooter";
 import InputBox from "../organisms/InputBox";
-import objectIsEmpity from "@/vendors/objectIsEmpity";
 
 type Model = GeneroModel
 const Model = GeneroModel
 
-interface DialogI {
-    data: Model | null
-    onClose: VoidFunction
-    onChange: (model: Model) => void
-}
-
-const UPDATE = gql`
-  mutation ($model: GeneroInput, $whereId: Int) {
-    editarGenero(model: $model, whereId: $whereId)
-  }
-`;
-export default function GeneroDialog({ data: initialData, onClose, onChange }: DialogI) {
+export default function GeneroDialog({ data: initialData, onClose, onChange, type }: DialogI<Model>) {
 
     const [form, setForm] = useState<Model>(new Model())
-    const [state, setState] = useState(false)
-    const [updateMutation, { loading, error }] = useMutation<Model>(UPDATE)
-    const [enableUpdate, setEnableUpdate] = useState(false)
 
-    useEffect(() => {
-        if (!initialData) return;
-        const objects = objDiferentiator(initialData, form)
-        setEnableUpdate(objectIsEmpity(objects))
-    }, [form])
-
-    const updateData = async () => {
-        if (!initialData) return;
-        const objects = objDiferentiator(initialData, form)
-
-        updateMutation({
-            variables: {
-                whereId: parseInt(`${initialData.Id}`),
-                model: objects
-            }
-        }).then(() => {
-            onChange(form)
-        })
-    }
+    const state = !!initialData
+    const footer = <DialogFooter
+        inputModelName="GeneroInput"
+        deleteResolverName="excluirGenero"
+        createResolverName="criarGenero"
+        editResolverName="editarGenero"
+        form={form} onSend={onChange}
+        oldForm={initialData as Model}
+        type={type} />
 
     useEffect(() => {
         if (initialData) setForm(initialData)
-        setState(!!initialData)
     }, [initialData])
 
     const onInputData = (key: string, data: unknown) => setForm(d => ({ ...d, [key]: data }))
-
-    const footer = <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>
-        <Button className="basis-[80px] flex-grow justify-center bg-red-600 border-red-600 text-white" >Delete</Button>
-        <Button className="basis-[80px] flex-grow justify-center bg-blue-600 border-blue-600 text-white" disabled={!enableUpdate} loading={loading} onClick={updateData}>Update</Button>
-    </div>
 
     const header = "Editar gênero"
 
@@ -70,9 +36,5 @@ export default function GeneroDialog({ data: initialData, onClose, onChange }: D
             <InputBox value={form["Nome"]} inputKey="Nome" label="Insira o nome" onInput={onInputData} inputType="text" outputType="string" />
             <InputBox value={form["Descricao"]} inputKey="Descricao" label="Insira a descrição" onInput={onInputData} inputType="text" outputType="string" />
         </div>
-        <IF conditional={!!error}>
-            Deu pau:
-            {getMessageFromError(error)}
-        </IF>
     </Dialog>
 }

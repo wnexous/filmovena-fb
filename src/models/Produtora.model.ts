@@ -1,5 +1,5 @@
 export default class ProdutoraModel {
-    public Id!: number
-    public Nome!: string
-    public Ano_Fund!: number
+    public Id = Number()
+    public Nome = String()
+    public Ano_Fund = Number()
 };

@@ -17,7 +17,10 @@ interface InputBoxI {
 }
 const InputBox = ({ inputKey, label, value = "", onInput, inputType = "text", outputType = "string", fieldType = "text" }: InputBoxI) => {
     const outputHandler = (value: string) => {
-        if (outputType == "date") return value
+        if (outputType == "date") {
+            const date = new Date(value)
+            return date.toISOString().split('T')[0];
+        }
         if (outputType == "float") {
             const numb = parseFloat(value)
             return (Number.isNaN(numb) ? "" : numb)

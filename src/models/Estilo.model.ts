@@ -1,5 +1,5 @@
 export default class EstiloModel {
-    public Id!: number
-    public fk_Filme_Id!: number
-    public fk_Genero_Id!: number
+    public Id = Number()
+    public fk_Filme_Id = Number()
+    public fk_Genero_Id = Number()
 };
