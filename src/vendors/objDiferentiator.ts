@@ -13,10 +13,6 @@ export default function objDiferentiator(matriz: object, diference: object) {
             console.log('err', err)
 
         }
-
-
     })
-
     return objResult
-
 };

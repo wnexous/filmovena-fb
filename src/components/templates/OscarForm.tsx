@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import OscarDialog from "./OscarDialog";
 import { DialogHandlerT } from "@/interfaces/DialogI";
 import TableButton from "../molecules/TableButton";
+import Loading from "../molecules/Loading";
 
 const Model = OscarModel
 type Model = OscarModel
@@ -41,7 +42,7 @@ export default function OscarForm() {
     setModalType(haveItemOnList ? "edit" : "create")
   }, [data])
   
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>
 
   return <div>

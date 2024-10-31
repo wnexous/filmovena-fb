@@ -7,6 +7,7 @@ import { DataTable } from "primereact/datatable";
 import { useEffect, useState } from "react";
 import TableButton from "../molecules/TableButton";
 import FilmeDialog from "./FilmeDialog";
+import Loading from "../molecules/Loading";
 
 const GET_DATA = gql`
   query {
@@ -41,12 +42,10 @@ export default function FilmeForm() {
 
   useEffect(() => {
     const haveItemOnList = data?.[queryName].some(i => i.Id == selected?.Id)
-    console.log('data?.[queryName].', data?.[queryName])
-    console.log('haveItemOnList', haveItemOnList)
     setModalType(haveItemOnList ? "edit" : "create")
   }, [data, selected])
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>
 
   return <div>

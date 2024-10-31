@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import GeneroDialog from "./GeneroDialog";
 import { DialogHandlerT } from "@/interfaces/DialogI";
 import TableButton from "../molecules/TableButton";
+import Loading from "../molecules/Loading";
 
 const GET_DATA = gql`
   query {
@@ -39,7 +40,8 @@ export default function GeneroForm() {
     const haveItemOnList = data?.[queryName].some(i => i.Id == selected?.Id)
     setModalType(haveItemOnList ? "edit" : "create")
   }, [data])
-  if (loading) return <div>Loading...</div>
+  
+  if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>
 
   return <div>

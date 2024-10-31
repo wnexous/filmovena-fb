@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { FloatLabel } from "primereact/floatlabel";
 import { useEffect, useState } from "react";
 import Queries from "@/interfaces/Queries";
+import Loading from "./Loading";
 
 interface DropdownTableOptionsI {
     defaultId: string | number
@@ -16,7 +17,7 @@ interface DropdownTableOptionsI {
     inputKey: string
 }
 
-export default function DropdownTableOptions({ placeholder, column, onInput, table, defaultId, idColumnName = "Id",inputKey }: DropdownTableOptionsI) {
+export default function DropdownTableOptions({ placeholder, column, onInput, table, defaultId, idColumnName = "Id", inputKey }: DropdownTableOptionsI) {
 
     const [item, setItem] = useState<object>()
 
@@ -40,7 +41,7 @@ export default function DropdownTableOptions({ placeholder, column, onInput, tab
         if (item) onInput(inputKey, item[idColumnName as keyof object])
     }, [item])
 
-    if (loading || !data) return <></>
+    if (loading || !data) return <Loading />
 
     if (error) return <></>
 

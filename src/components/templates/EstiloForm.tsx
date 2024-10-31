@@ -7,6 +7,7 @@ import { DataTable } from "primereact/datatable";
 import { useEffect, useState } from "react";
 import TableButton from "../molecules/TableButton";
 import EstiloDialog from "./EstiloDialog";
+import Loading from "../molecules/Loading";
 
 const GET_DATA = gql`
   query {
@@ -41,7 +42,7 @@ export default function EstiloForm() {
     setModalType(haveItemOnList ? "edit" : "create")
   }, [data])
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>
 
   return <div>

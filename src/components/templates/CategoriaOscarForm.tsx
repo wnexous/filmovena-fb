@@ -7,6 +7,7 @@ import { DataTable } from "primereact/datatable";
 import { useEffect, useState } from "react";
 import TableButton from "../molecules/TableButton";
 import CategoriaOscarDialog from "./CategoriaOscarDialog";
+import Loading from "../molecules/Loading";
 
 const Model = CategoriaOscarModel
 type Model = CategoriaOscarModel
@@ -40,7 +41,7 @@ export default function CategoriaOscarForm() {
     setModalType(haveItemOnList ? "edit" : "create")
   }, [data])
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>
 
   return <div>
