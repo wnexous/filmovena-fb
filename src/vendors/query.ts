@@ -42,7 +42,8 @@ const query = {
     async log(query: string, params: string[]) {
         try {
             const finalQuery = query.replace(/\?/g, () => String(params.shift()));
-            console.log('query:', finalQuery)
+            console.log('Original:', query)
+            console.log('Query:', finalQuery)
         } catch (error) { console.log('error', error) }
     }
 }
