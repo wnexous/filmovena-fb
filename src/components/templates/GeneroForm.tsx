@@ -39,8 +39,8 @@ export default function GeneroForm() {
   useEffect(() => {
     const haveItemOnList = data?.[queryName].some(i => i.Id == selected?.Id)
     setModalType(haveItemOnList ? "edit" : "create")
-  }, [data])
-  
+  }, [data, selected])
+
   if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>
 

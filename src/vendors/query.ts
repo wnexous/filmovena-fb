@@ -2,9 +2,9 @@ import { XOR } from "@/interfaces/Xor"
 import database from "@/libs/database"
 import { QueryResult } from "mysql2"
 import buildFieldsQueryByObj from "./buildFieldsQueryByObj"
+import buildInsertQueryByObj from "./buildInsertQueryByObj"
 import buildSetQueryByObj from "./buildSetQueryByObj"
 import getQueryFromArray from "./getQueryFromArray"
-import buildInsertQueryByObj from "./buildInsertQueryByObj"
 const query = {
     query<T = QueryResult>(query: string, params: string[] = []): Promise<T> {
         return new Promise<T>((res, rej) => database.execute(query, params, (err, data) => {

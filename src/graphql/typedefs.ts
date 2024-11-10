@@ -12,6 +12,7 @@ const typeDefs = /* GraphQL */ `
     generos: [Genero]
     oscars: [Oscar]
     produtoras: [Produtora]
+    filmeListagem: [FilmeListagem]
   }
   type Mutation {
     criarAtor(model: AtorInput): Boolean
@@ -49,6 +50,15 @@ const typeDefs = /* GraphQL */ `
     criarProdutora(model: ProdutoraInput): Boolean
     editarProdutora(model: ProdutoraInput, whereId: Int): Boolean
     excluirProdutora(whereId: Int): Boolean
+  }
+  type FilmeListagem {
+    Id: ID
+    Nome: String
+    Dt_Lanc: Date
+    IMDB: Float
+    Tempo_duracao: String
+    FaixaEtaria_Descricao: String
+    Produtora_Nome: String
   }
   type Ator {
     Id: ID
@@ -158,7 +168,7 @@ const typeDefs = /* GraphQL */ `
   input ProdutoraInput {
     Id: ID
     Nome: String
-    Ano_Fund: String
+    Ano_Fund: Int
   }
 `;
 

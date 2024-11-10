@@ -55,12 +55,10 @@ export default function FilmeForm() {
       <Column field="Dt_Lanc" header="Data de lançamento" style={{ width: '16%' }} className="whitespace-nowrap"></Column>
       <Column field="IMDB" header="IMDB" ></Column>
       <Column field="Tempo_duracao" header="Tempo de duração" style={{ width: '16%' }} ></Column>
-      <Column field="Faixa_Etaria" header="Faixa etária" style={{ width: '12%' }}></Column>
+      <Column field="fk_FaixaEtaria_Id" header="Id Faixa etária" style={{ width: '12%' }}></Column>
       <Column field="Sinopse" header="Sinopse" style={{ width: '25%' }}></Column>
       <Column field="fk_Produtora_Id" header="Id produtora" className="whitespace-nowrap"></Column>
     </DataTable>
-
     <FilmeDialog type={modalType} data={selected} onClose={() => setSelected(null)} onChange={reloadData} />
-
   </div>
 }

@@ -4,9 +4,11 @@ import ElencoModel from "@/models/Elenco.model";
 import EstiloModel from "@/models/Estilo.model";
 import FaixaEtariaModel from "@/models/FaixaEtaria.model";
 import FilmeModel from "@/models/Filme.model";
+import FilmeListagemModel from "@/models/FilmeListagem.model";
 import GeneroModel from "@/models/Genero.model";
 import OscarModel from "@/models/Oscar.model";
 import ProdutoraModel from "@/models/Produtora.model";
+import sql from "@/sql";
 import getFieldsFromInfo from "@/vendors/getFieldsFromInfo";
 import query from "@/vendors/query";
 
@@ -21,6 +23,7 @@ const resolvers = {
         generos: async (paremt: unknown, arg: unknown, context: unknown, info: unknown) => await query.selectAll("Genero", getFieldsFromInfo(info)),
         oscars: async (paremt: unknown, arg: unknown, context: unknown, info: unknown) => await query.selectAll("Oscar", getFieldsFromInfo(info)),
         produtoras: async (paremt: unknown, arg: unknown, context: unknown, info: unknown) => await query.selectAll("Produtora", getFieldsFromInfo(info)),
+        filmeListagem: async () => await query.query(sql.filmeListagem),
     },
     Mutation: {
         async criarAtor(_: unknown, { model }: { model: AtorModel }) {
@@ -139,6 +142,15 @@ const resolvers = {
             await query.delete<ProdutoraModel>("Produtora", { Id: whereId })
             return true
         }
+    },
+    FilmeListagem: {
+        Id: (data: FilmeListagemModel) => data.Id,
+        Nome: (data: FilmeListagemModel) => data.Nome,
+        Dt_Lanc: (data: FilmeListagemModel) => data.Dt_Lanc,
+        IMDB: (data: FilmeListagemModel) => data.IMDB.toFixed(2),
+        Tempo_duracao: (data: FilmeListagemModel) => data.Tempo_duracao,
+        FaixaEtaria_Descricao: (data: FilmeListagemModel) => data.FaixaEtaria_Descricao,
+        Produtora_Nome: (data: FilmeListagemModel) => data.Produtora_Nome,
     },
     Ator: {
         Id: (data: AtorModel) => data.Id,

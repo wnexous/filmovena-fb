@@ -25,7 +25,7 @@ const queryName = "produtoras"
 
 export default function ProdutoraForm() {
 
-  const { loading, data, error, refetch } = useQuery<{ produtoras: Model[] }>(GET_DATA);
+  const { loading, data, error, refetch, previousData } = useQuery<{ produtoras: Model[] }>(GET_DATA);
   const [selected, setSelected] = useState<Model | null>(null)
   const [modalType, setModalType] = useState<DialogHandlerT>()
 
@@ -38,8 +38,11 @@ export default function ProdutoraForm() {
 
   useEffect(() => {
     const haveItemOnList = data?.[queryName].some(i => i.Id == selected?.Id)
+    console.log('haveItemOnList', haveItemOnList)
     setModalType(haveItemOnList ? "edit" : "create")
-  }, [data])
+  }, [data, data?.produtoras.length, selected, previousData])
+
+
 
   if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>

@@ -32,7 +32,7 @@ export default function ProdutoraDialog({ data: initialData, onClose, onChange, 
 
     return <Dialog onHide={onClose} visible={state} header={header} footer={footer} className="w-96">
         <div className="flex flex-col gap-7 w-full my-6">
-            <InputBox value={form["Id"]} inputKey="Id" label="Insira o ID" onInput={onInputData} inputType="text" outputType="int" />
+            <InputBox value={form["Id"]} inputKey="Id" label="Insira o ID" onInput={onInputData} inputType="number" outputType="int" />
             <InputBox value={form["Nome"]} inputKey="Nome" label="Insira o nome" onInput={onInputData} inputType="text" outputType="string" />
             <InputBox value={form["Ano_Fund"]} inputKey="Ano_Fund" label="Insira o ano de fundação" onInput={onInputData} inputType="number" outputType="int" />
         </div>

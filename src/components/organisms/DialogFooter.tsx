@@ -45,7 +45,7 @@ export default function DialogFooter({ createResolverName, deleteResolverName, e
                     whereId: parseInt(`${oldForm.Id}`),
                     model: objDiferentiator(oldForm, form)
                 }
-            }).then(() => { onSend(form) })
+            }).finally(() => { onSend(form) })
 
         if (type == "create")
             createAction({
@@ -53,7 +53,7 @@ export default function DialogFooter({ createResolverName, deleteResolverName, e
                     model: form
 
                 }
-            }).then(() => { onSend(form) })
+            }).finally(() => { onSend(form) })
     }
 
     const deleteData = () => {
@@ -61,7 +61,7 @@ export default function DialogFooter({ createResolverName, deleteResolverName, e
             variables: {
                 whereId: parseInt(`${oldForm.Id}`),
             }
-        }).then(() => { onSend(form) })
+        }).finally(() => { onSend(form) })
     }
 
     return <div className='flex flex-wrap gap-2 w-full whitespace-nowrap text-center'>

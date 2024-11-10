@@ -39,8 +39,9 @@ export default function EstiloForm() {
 
   useEffect(() => {
     const haveItemOnList = data?.[queryName].some(i => i.Id == selected?.Id)
+    console.log('haveItemOnList', haveItemOnList)
     setModalType(haveItemOnList ? "edit" : "create")
-  }, [data])
+  }, [data, selected])
 
   if (loading) return <Loading />
   if (error) return <div>Erro: {error.message}</div>
