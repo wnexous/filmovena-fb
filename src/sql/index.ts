@@ -1,7 +1,8 @@
 import { readFileSync } from "fs";
+import path from "path";
 
 const sql = {
-    filmeListagem: readFileSync("src/sql/filmeListagem.sql", "utf-8")
+    filmeListagem: readFileSync(path.join("src", "sql", "filmeListagem.sql"), "utf-8")
 }
 
 export default sql
